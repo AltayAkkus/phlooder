@@ -3,14 +3,9 @@
  * E-mail: blueover AT gmail com
  * Phlooder Website: http://code.google.com/p/phlooder
  * */
-import javax.xml.parsers.DocumentBuilder; 
-import javax.xml.parsers.DocumentBuilderFactory;   
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;  
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
-import org.w3c.dom.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.List;
@@ -392,7 +387,7 @@ public class Phlooder extends Frame{
     
 	CheckboxGroup urls_select=new CheckboxGroup();
     
-    Phlooder(String name){
+    Phlooder(String name,String isTest){
     	Welcome welcome=new Welcome();
     	welcome.pack();
     	welcome.setVisible(true);
@@ -408,7 +403,11 @@ public class Phlooder extends Frame{
     	URIContainer.setLayout(new GridLayout(10,1));
     	actionContainer.setLayout(new GridLayout(1,1));
     	welcome.setLoad("Fetching PhishTank Data");
-    	checkBoxes=PhishTank.getPhishTank();
+    	checkBoxes=PhishTank.getPhishTank(isTest);
+    	if (checkBoxes.isEmpty()){
+    		System.out.println("No phishers found!");
+    		System.exit(-1);
+    	}
     	Iterator i=checkBoxes.iterator();
     	setLayout(new GridLayout(1,2));
     	welcome.setLoad("Scanning forms");
@@ -444,11 +443,15 @@ public class Phlooder extends Frame{
      * Main entry point.
      * */
     public static void main(String args[]){
-
-    	Phlooder p=new Phlooder("Phlooder");
+    	String isTest=null;
+    	if (args.length>=1 ){
+    		isTest=new String(args[0]);
+    	}
+    	Phlooder p=new Phlooder("Phlooder",isTest);
     	
     	p.pack();
     	p.setVisible(true);	
     	
+
     }
 }

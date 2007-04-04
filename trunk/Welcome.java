@@ -13,6 +13,7 @@ import java.awt.*;
 class Welcome extends Frame{
 	Label l;
 	public Welcome(){
+		setTitle("Loading Phlooder...");
 		setUndecorated(true);
 		setLocationRelativeTo(null);
 		Container c=new Container();

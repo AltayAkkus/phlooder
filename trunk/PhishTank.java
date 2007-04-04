@@ -1,3 +1,9 @@
+/**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
+
 import java.io.IOException;
 import java.util.*;
 import javax.xml.parsers.DocumentBuilder;
@@ -10,18 +16,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-/**
- * @author The Blue Overdose Project
- * E-mail: blueover AT gmail com
- * Phlooder Website: http://code.google.com/p/phlooder
- * */
 class PhishTank{
 	/**
 	 * Loads all the PhishTank XML data of the online, valid  
 	 * phishing sites, and put the first 10  into the checkBoxes 
 	 * ArrayList
 	 * */
-	public static ArrayList<URIBox> getPhishTank()
+	public static ArrayList<URIBox> getPhishTank(String isTest)
     {
     	Document document=null;
     	ArrayList<URIBox> checkBoxes=new ArrayList<URIBox>();
@@ -31,8 +32,10 @@ class PhishTank{
         factory.setNamespaceAware(false);
         try {
            DocumentBuilder builder = factory.newDocumentBuilder();
-           //document = builder.parse("http://localhost/shared/index.xml");
-           document = builder.parse("http://data.phishtank.com/data/online-valid/index.php");
+           if (isTest!=null)
+        	   document = builder.parse(isTest);
+           else
+        	   document = builder.parse("http://data.phishtank.com/data/online-valid/");
         } catch (SAXException sxe) {
            Exception  x = sxe;
            if (sxe.getException() != null)
