@@ -1,29 +1,18 @@
 import javax.xml.parsers.DocumentBuilder; 
-import javax.xml.parsers.DocumentBuilderFactory;  
-//import javax.xml.parsers.FactoryConfigurationError;  
+import javax.xml.parsers.DocumentBuilderFactory;   
 import javax.xml.parsers.ParserConfigurationException;
- 
-
-
 import org.xml.sax.SAXException;  
-//import org.xml.sax.SAXParseException;  
-
-//import java.io.File;
-//import java.io.IOException;
-
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
-
 import org.w3c.dom.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.List;
-
 import java.net.*;
 
-
+/**This is the main class.
+ * */
 public class Phlooder extends Frame{
 	
 	/* This class is needed because we dont want to 
@@ -31,13 +20,24 @@ public class Phlooder extends Frame{
 	 * to assign the checkbox labels with the actual URIs 
 	 * */
 	private class URIBox{
-		String uri;
-		String boxLabel;
-		int maxLength=40;
+		private String uri;
+		private String boxLabel;
+		private int maxLength=40;
+		
+		/**
+		 * @param u
+		 * The URI
+		 * @param l
+		 * Label of the box. This appears if URI is too long. 
+		 * */
 		URIBox(String u, String l){
 			uri=u;
 			boxLabel=l;
 		}
+		/**
+		 * @param u
+		 * The URI 
+		 * */
 		URIBox (String u){
 			uri=u;
 			if (uri.length()>maxLength){
@@ -61,6 +61,10 @@ public class Phlooder extends Frame{
 			boxLabel=l;
 		}
 	}
+	/**
+	 * @return
+	 * The URI of the <code>URIBox</code>
+	 * */
 	private String getURIFromCheckbox(String label, ArrayList list){
 		Iterator i=list.iterator();
 		while(i.hasNext()){
@@ -80,8 +84,9 @@ public class Phlooder extends Frame{
 
 	Form form=null;
 	
-	/*Generates the Flood Configuration Fields :)
-	 **/
+	/**
+	 * Generates the Flood Configuration Fields :)
+	 */
 	private void putActionPanel(Form form){
 		actionContainer.removeAll();
 		URIContainer.setVisible(true);
@@ -202,7 +207,7 @@ public class Phlooder extends Frame{
 		repaint();
 	}
 	
-	/*
+	/**
 	 * Loads all the PhishTank XML data of the online, valid  
 	 * phishing sites, and put the first 10  into the checkBoxes 
 	 * ArrayList
@@ -216,8 +221,8 @@ public class Phlooder extends Frame{
         factory.setNamespaceAware(false);
         try {
            DocumentBuilder builder = factory.newDocumentBuilder();
-           document = builder.parse("http://localhost/shared/index.xml");
-           //document = builder.parse("http://data.phishtank.com/data/online-valid/index.php");
+           //document = builder.parse("http://localhost/shared/index.xml");
+           document = builder.parse("http://data.phishtank.com/data/online-valid/index.php");
         } catch (SAXException sxe) {
            Exception  x = sxe;
            if (sxe.getException() != null)
@@ -255,7 +260,8 @@ public class Phlooder extends Frame{
     Container URIContainer;
 	ScrollPane scroller;
 
-	/*Add an INPUT field to the specified Form.
+	/**
+	 * Add an INPUT field to the specified Form.
      * @param in
      * The (X)HTML code of the INPUT field.
      * @param form
@@ -314,7 +320,7 @@ public class Phlooder extends Frame{
     	
     }
     
-    /*
+    /**
      * Scans the given URI for HTML forms. Loads the first one
      * into form for further use.
      * @param uri
@@ -518,6 +524,9 @@ public class Phlooder extends Frame{
     		scroller.add(actionContainer);
     	}	
     }
+    /**
+     * Main entry point.
+     * */
     public static void main(String args[]){
     	Phlooder p=new Phlooder("Phlooder");
     	

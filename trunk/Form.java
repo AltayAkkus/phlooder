@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-//import Phlooder.Flood;
-//import Phlooder.FormField;
-
 class Form{
 		String method;	
 		String action;
