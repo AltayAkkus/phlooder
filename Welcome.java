@@ -1,4 +1,8 @@
 import java.awt.*;
+/**
+ * Class of the welcome screen.
+ * TODO: Welcome image
+ * */
 class Welcome extends Frame{
 	Label l;
 	public Welcome(){
@@ -12,6 +16,12 @@ class Welcome extends Frame{
 		add(c);
 		toFront();
 	}
+	
+	/**
+	 * Sets the actual activity.
+	 * @param s
+	 * Description of the activity
+	 * */
 	public void setLoad(String s){
 		l.setText(s);
 		repaint();

@@ -16,19 +16,19 @@ class Form{
 		String method;	
 		String action;
 		String original_uri;
-		ArrayList fields;
+		ArrayList<FormField> fields;
 		
 		
 		Form(String a,String m){
 			action=a;
 			method=m;
-			fields=new ArrayList();
+			fields=new ArrayList<FormField>();
 			
 		}
 		Form (){
 			action="";
 			method="GET";
-			fields=new ArrayList();
+			fields=new ArrayList<FormField>();
 			
 		}
 		public void addField(FormField f){
