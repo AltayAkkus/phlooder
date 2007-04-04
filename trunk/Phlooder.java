@@ -482,7 +482,9 @@ public class Phlooder extends Frame{
 	CheckboxGroup urls_select=new CheckboxGroup();
     
     Phlooder(String name){
-
+    	Welcome welcome=new Welcome();
+    	welcome.pack();
+    	welcome.show();
     	setTitle(name);
     	addWindowListener(new WindowAdapter(){
     		public void windowClosing(WindowEvent e){
@@ -494,10 +496,11 @@ public class Phlooder extends Frame{
     	scroller=new ScrollPane();
     	URIContainer.setLayout(new GridLayout(10,1));
     	actionContainer.setLayout(new GridLayout(1,1));
+    	welcome.setLoad("Fetching PhishTank Data");
     	getPhishTank();
     	Iterator i=checkBoxes.iterator();
     	setLayout(new GridLayout(1,2));
-
+    	welcome.setLoad("Scanning forms");
     	while(i.hasNext()){
     		Checkbox ch=new Checkbox(((URIBox)i.next()).getLabel(),urls_select,false);
     		ch.addItemListener(new ItemListener(){
@@ -517,20 +520,24 @@ public class Phlooder extends Frame{
     				}	
     			}
     		});
+    		welcome.setLoad("Building UI");
     	   	URIContainer.add(ch);
     		
     		add(URIContainer);
     		add(scroller);
     		scroller.add(actionContainer);
+    		welcome.dispose();
     	}	
     }
     /**
      * Main entry point.
      * */
     public static void main(String args[]){
+
     	Phlooder p=new Phlooder("Phlooder");
     	
     	p.pack();
     	p.show();	
+    	
     }
 }
