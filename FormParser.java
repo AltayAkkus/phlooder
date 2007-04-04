@@ -21,9 +21,10 @@ class FormParser{
 		}
 		
 	}
-	public void loadForm(){
+	public Form loadForm(){
 		String formAction=new String();
 		String formMethod=new String();
+		
 		List forms=phisher.findAllElements(Tag.FORM);
 		if (forms.iterator().hasNext()){
 			Element form=(Element)forms.iterator().next();
@@ -31,16 +32,24 @@ class FormParser{
 			formMethod=form.getAttributes().getValue("method");
 		}
 		System.out.println(formAction+"-"+formMethod);
+		
+		Form ret=new Form(formAction,formMethod);
+		ret.setURI(phisher.toString());
 		for(Iterator i=fields.iterator();i.hasNext();){
+			
 			au.id.jericho.lib.html.FormField f=(au.id.jericho.lib.html.FormField)i.next();
 			FormControlType type=f.getFormControl().getFormControlType();
 			String name=f.getName();
 			System.out.println(type+" "+name);
 			Collection values=f.getPredefinedValues();
+			String value=new String();
 			for(Iterator v=values.iterator();v.hasNext();){
-				String value=(String)v.next(); 
+				value=(String)v.next(); 
 				System.out.println("- "+value);
 			}
+			FormField ff=new FormField(type.toString(),value,name);
+			ret.addField(ff);
 		}
+		return ret;
 	}
 }

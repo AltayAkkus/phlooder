@@ -418,8 +418,10 @@ public class Phlooder extends Frame{
     			{
     				Checkbox tmp=(Checkbox)i.getSource();
     				if (tmp.getState()){
-    					if(scanForms(getURIFromCheckbox(tmp.getLabel(),checkBoxes)) && form!=null){
-    						putActionPanel(form);
+    					FormParser parser=new FormParser(getURIFromCheckbox(tmp.getLabel(),checkBoxes));
+    					Form myform=parser.loadForm();
+    					if(myform!=null){
+    						putActionPanel(myform);
     					}else{
     						actionContainer.add(new Label("Cannot load form! Sorry, try another site!"));
     						pack();
@@ -452,6 +454,7 @@ public class Phlooder extends Frame{
     	p.pack();
     	p.setVisible(true);	
     	
-
+    	//FormParser fp =new FormParser("http://localhost:8080/PhlooderFunctionTest/phishing.php");
+    	//fp.loadForm();
     }
 }
