@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import Phlooder.Flood;
-import Phlooder.FormField;
+//import Phlooder.Flood;
+//import Phlooder.FormField;
 
 class Form{
 		String method;	
@@ -84,7 +84,7 @@ class Form{
 		 * then calls sendViaGET() or sendViaPOST() to send the form data.
 		 * */
 		public void send(){
-			thread_check++;
+			//thread_check++;
 			
 			try{
 				URI uri=new URI(original_uri);

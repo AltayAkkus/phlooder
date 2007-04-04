@@ -30,7 +30,7 @@ public class Phlooder extends Frame{
 	 * show the URI-s in their full length, so we have 
 	 * to assign the checkbox labels with the actual URIs 
 	 * */
-	class URIBox{
+	private class URIBox{
 		String uri;
 		String boxLabel;
 		int maxLength=40;
@@ -61,7 +61,7 @@ public class Phlooder extends Frame{
 			boxLabel=l;
 		}
 	}
-	String getURIFromCheckbox(String label, ArrayList list){
+	private String getURIFromCheckbox(String label, ArrayList list){
 		Iterator i=list.iterator();
 		while(i.hasNext()){
 			URIBox ub=(URIBox)i.next();
@@ -76,13 +76,13 @@ public class Phlooder extends Frame{
 	ArrayList checkBoxes=new ArrayList();
 
 
-	int thread_check=0;
+	//int thread_check=0;
 
 	Form form=null;
 	
 	/*Generates the Flood Configuration Fields :)
 	 **/
-	void putActionPanel(Form form){
+	private void putActionPanel(Form form){
 		actionContainer.removeAll();
 		URIContainer.setVisible(true);
 		actionContainer.setLayout(new GridLayout(form.getInputCount()+2,4));
@@ -170,7 +170,7 @@ public class Phlooder extends Frame{
 		final Button start=new Button("Phlood it!");
 		final Button stop=new Button("Pause");
 		stop.setEnabled(false);
-		final PhlooderThread ph_thread=new PhlooderThread();
+		final PhlooderThread ph_thread=new PhlooderThread(form);
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.out.println("--Phlood starts!--");
@@ -207,7 +207,7 @@ public class Phlooder extends Frame{
 	 * phishing sites, and put the first 10  into the checkBoxes 
 	 * ArrayList
 	 * */
-	void getPhishTank()
+	private void getPhishTank()
     {
     	Document document=null;
         
@@ -261,7 +261,7 @@ public class Phlooder extends Frame{
      * @param form
      * The Form to attach to.
      * */
-    void addInputToForm(String in,Form form){
+    private void addInputToForm(String in,Form form){
     	Pattern namePattern=Pattern.compile("name=\"?[^>\"]*\"?");
 		Pattern valuePattern=Pattern.compile("value=\"?[^>\"]*\"?");
 		Pattern typePattern=Pattern.compile("type=\"?[^>\"]*\"?");
@@ -323,7 +323,7 @@ public class Phlooder extends Frame{
      * TRUE if a form was successfully loaded, FALSE if no form 
      * was found or an error occured. 
      * */
-    boolean scanForms(String uri){
+    private boolean scanForms(String uri){
     	System.out.println(uri);
     	String s;
     	form=new Form();

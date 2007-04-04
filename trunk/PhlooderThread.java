@@ -3,7 +3,15 @@
 	class PhlooderThread extends Thread{
 		
 		private boolean blinker;
+		private int thread_check;
+		private Form form;
 		private boolean started=false;
+		
+		public PhlooderThread(Form f){
+			form=f;
+			thread_check=0;
+		}
+		
 		/**The original stop() method is unsafe!
 		 * This method is to be used instead of that!
 		 * I don't know if this solution is good enough, but 
