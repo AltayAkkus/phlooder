@@ -7,12 +7,18 @@
 import au.id.jericho.lib.html.*;
 import java.net.*;
 import java.util.*;
+
+/**
+ * TODO: Default value isn't set!
+ * */
 class FormParser{
 	private Source phisher;
 	private FormFields fields;
+	private String originalURI;
 	FormParser(String uri){
 		try{
 			phisher=new Source(new URL(uri));
+			originalURI=uri;
 			fields=phisher.findFormFields();
 		
 		}catch(Exception e){
@@ -34,7 +40,7 @@ class FormParser{
 		System.out.println(formAction+"-"+formMethod);
 		
 		Form ret=new Form(formAction,formMethod);
-		ret.setURI(phisher.toString());
+		ret.setURI(originalURI);
 		for(Iterator i=fields.iterator();i.hasNext();){
 			
 			au.id.jericho.lib.html.FormField f=(au.id.jericho.lib.html.FormField)i.next();
