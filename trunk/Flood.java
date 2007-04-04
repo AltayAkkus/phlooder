@@ -1,3 +1,8 @@
+/**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
 class Flood{
 		public static final int NOP=0;
 		public static final int INT=1;

@@ -1,4 +1,10 @@
 /**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
+
+/**
  * This class is needed because we dont want to 
  * show the URI-s in their full length, so we have 
  * to assign the checkbox labels with the actual URIs 

@@ -1,4 +1,11 @@
+/**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
+
 import java.awt.*;
+
 /**
  * Class of the welcome screen.
  * TODO: Welcome image
