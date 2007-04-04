@@ -35,7 +35,7 @@ public class Phlooder extends Frame{
 
 	//int thread_check=0;
 
-	Form form=null;
+	//Form form=null;
 	
 	/**
 	 * Generates the Flood Configuration Fields :)
@@ -235,7 +235,7 @@ public class Phlooder extends Frame{
      * TRUE if a form was successfully loaded, FALSE if no form 
      * was found or an error occured. 
      * */
-    private boolean scanForms(String uri){
+  /*  private boolean scanForms(String uri){
     	System.out.println(uri);
     	String s;
     	form=new Form();
@@ -384,8 +384,9 @@ public class Phlooder extends Frame{
 			return false;
 		}
     }
-    
-	CheckboxGroup urls_select=new CheckboxGroup();
+    */
+	
+    CheckboxGroup urls_select=new CheckboxGroup();
     
     Phlooder(String name,String isTest){
     	Welcome welcome=new Welcome();
@@ -444,6 +445,7 @@ public class Phlooder extends Frame{
     /**
      * Main entry point.
      * */
+    
     public static void main(String args[]){
     	String isTest=null;
     	if (args.length>=1 ){
