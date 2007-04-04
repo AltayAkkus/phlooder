@@ -1,5 +1,6 @@
-/*The flooder thread. Calls form.send(). 
-	 * */
+/** 
+ * The flooder thread. Calls <code>form.send()</code>. 
+ * */
 	class PhlooderThread extends Thread{
 		
 		private boolean blinker;
