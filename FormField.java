@@ -1,4 +1,8 @@
-//import Phlooder.Flood;
+/**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
 
 /**
  * Represents one field on a html form

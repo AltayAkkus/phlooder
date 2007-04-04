@@ -1,3 +1,9 @@
+/**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
+
 /** 
  * The flooder thread. Calls <code>form.send()</code>. 
  * */

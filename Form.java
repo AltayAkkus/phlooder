@@ -1,3 +1,8 @@
+/**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;

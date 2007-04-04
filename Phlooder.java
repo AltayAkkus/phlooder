@@ -1,3 +1,8 @@
+/**
+ * @author The Blue Overdose Project
+ * E-mail: blueover AT gmail com
+ * Phlooder Website: http://code.google.com/p/phlooder
+ * */
 import javax.xml.parsers.DocumentBuilder; 
 import javax.xml.parsers.DocumentBuilderFactory;   
 import javax.xml.parsers.ParserConfigurationException;
@@ -160,54 +165,7 @@ public class Phlooder extends Frame{
 		repaint();
 	}
 	
-	/**
-	 * Loads all the PhishTank XML data of the online, valid  
-	 * phishing sites, and put the first 10  into the checkBoxes 
-	 * ArrayList
-	 * */
-	private void getPhishTank()
-    {
-    	Document document=null;
-        
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setValidating(false);   
-        factory.setNamespaceAware(false);
-        try {
-           DocumentBuilder builder = factory.newDocumentBuilder();
-           //document = builder.parse("http://localhost/shared/index.xml");
-           document = builder.parse("http://data.phishtank.com/data/online-valid/index.php");
-        } catch (SAXException sxe) {
-           Exception  x = sxe;
-           if (sxe.getException() != null)
-               x = sxe.getException();
-           x.printStackTrace();
-           System.out.println("Error generated during parsing!");
 
-        } catch (ParserConfigurationException pce) { 
-            System.out.println("Parser configuration error!");
-            checkBoxes.clear();
-            return;
-
-        } catch (IOException ioe) {
-        	System.out.println("I/O error!");
-        	checkBoxes.clear();
-        	return;
-          }
-        NodeList entryList = document.getElementsByTagName("entry");
-        Node entry;
-        
-        for (int i=0; (i<entryList.getLength()) && (i<10); i++) {
-            entry = entryList.item(i);
-            Element e=(Element)entry;
-            NodeList URLList=e.getElementsByTagName("url");
-            Element URLElement=(Element)URLList.item(0);
-            NodeList textFNList=URLElement.getChildNodes();
-            
-            checkBoxes.add(new URIBox(((Node)textFNList.item(0)).getNodeValue()));
-        }
-       
-        
-    }
 
     Container actionContainer;
     Container URIContainer;
@@ -450,7 +408,7 @@ public class Phlooder extends Frame{
     	URIContainer.setLayout(new GridLayout(10,1));
     	actionContainer.setLayout(new GridLayout(1,1));
     	welcome.setLoad("Fetching PhishTank Data");
-    	getPhishTank();
+    	checkBoxes=PhishTank.getPhishTank();
     	Iterator i=checkBoxes.iterator();
     	setLayout(new GridLayout(1,2));
     	welcome.setLoad("Scanning forms");
