@@ -86,8 +86,6 @@ class Form{
 		 * then calls sendViaGET() or sendViaPOST() to send the form data.
 		 * */
 		public void send(){
-			//thread_check++;
-			
 			try{
 				URI uri=new URI(original_uri);
 				uri=uri.resolve(action);

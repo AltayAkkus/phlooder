@@ -32,6 +32,7 @@ class Welcome extends Frame{
 	 * */
 	public void setLoad(String s){
 		l.setText(s);
+		setLocationRelativeTo(null);
 		repaint();
 	}
 }
