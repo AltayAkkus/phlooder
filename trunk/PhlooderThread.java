@@ -10,13 +10,13 @@
 	class PhlooderThread extends Thread{
 		
 		private boolean blinker;
-		private int thread_check;
+		private int threadCheck;
 		private Form form;
 		private boolean started=false;
 		
 		public PhlooderThread(Form f){
 			form=f;
-			thread_check=0;
+			threadCheck=0;
 		}
 		
 		/**The original stop() method is unsafe!
@@ -26,7 +26,7 @@
 		 * */
 		public void pause(){
 			blinker=false;
-			System.out.println(thread_check+" requests sent.");
+			System.out.println(threadCheck+" requests sent.");
 		}
 		public boolean isStarted(){
 			return started;
@@ -40,10 +40,11 @@
 		public void run(){
 			started=true;
 			blinker=true;
-			thread_check=0;
+			threadCheck=0;
 			System.out.println(form.toString());
 			while(blinker){
 				form.send();
+				threadCheck++;
 				try{
 				sleep(1000);
 				}catch(InterruptedException ie){

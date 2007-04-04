@@ -166,66 +166,6 @@ public class Phlooder extends Frame{
     Container URIContainer;
 	ScrollPane scroller;
 
-	/**
-	 * Add an INPUT field to the specified Form.
-     * @param in
-     * The (X)HTML code of the INPUT field.
-     * @param form
-     * The Form to attach to.
-     * */
-    private void addInputToForm(String in,Form form){
-    	Pattern namePattern=Pattern.compile("name=\"?[^>\"]*\"?");
-		Pattern valuePattern=Pattern.compile("value=\"?[^>\"]*\"?");
-		Pattern typePattern=Pattern.compile("type=\"?[^>\"]*\"?");
-		Pattern attrPattern=Pattern.compile("\"[^\">]*\"|=[^\"][\\S]*[\\s>$]",Pattern.CASE_INSENSITIVE);
-    	String name=null;
-		String value=null;
-		String type=null;
-		Matcher nameMatcher=namePattern.matcher(in);
-		Matcher valueMatcher=valuePattern.matcher(in);
-		Matcher typeMatcher=typePattern.matcher(in);
-		if (valueMatcher.find()){
-			value=valueMatcher.group(0);
-			Matcher tmp;
-			tmp=attrPattern.matcher(value);
-			if (tmp.find()){
-				value=tmp.group(0).substring(1,tmp.group(0).length()-1);
-			}else{
-				value=null;
-			}
-		}
-		if (typeMatcher.find()){
-			type=typeMatcher.group(0);
-			Matcher tmp;
-			tmp=attrPattern.matcher(type);
-			if (tmp.find()){
-				type=tmp.group(0).substring(1,tmp.group(0).length()-1);
-			}
-		}
-		if (nameMatcher.find()){
-			name=nameMatcher.group(0);
-			Matcher tmp;
-			tmp=attrPattern.matcher(name);
-			if (tmp.find()){
-				name=tmp.group(0).substring(1,tmp.group(0).length()-1);				
-			}
-		}
-		nameMatcher.reset();
-		typeMatcher.reset();
-		if (nameMatcher.find() && typeMatcher.find()){
-			if((value!=null) && (type.toLowerCase().equals("hidden") || type.toLowerCase().equals("radio") || type.toLowerCase().equals("checkbox") || type.toLowerCase().equals("submit"))){
-				form.addField(new FormField(type,value,name,new Flood(Flood.NOP,4)));
-			}else if (name.toLowerCase().equals("email") || name.toLowerCase().equals("mail")){
-				form.addField(new FormField(type,value,name,new Flood(Flood.EMAIL,25)));
-			}else if(type.toLowerCase().equals("select")){
-				form.addField(new FormField(type,value,name,new Flood(Flood.SELECT,25)));
-			}
-			else
-				form.addField(new FormField(type,value,name, new Flood()));
-		}
-    	
-    }
-	
     CheckboxGroup urls_select=new CheckboxGroup();
     
     Phlooder(String name,String isTest){
@@ -250,7 +190,7 @@ public class Phlooder extends Frame{
     		System.exit(-1);
     	}
     	Iterator i=checkBoxes.iterator();
-    	setLayout(new GridLayout(1,2));
+    	setLayout(new GridLayout(2,1));
     	welcome.setLoad("Scanning forms");
     	while(i.hasNext()){
     		Checkbox ch=new Checkbox(((URIBox)i.next()).getLabel(),urls_select,false);
