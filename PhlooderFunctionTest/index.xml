@@ -1,0 +1,20 @@
+<output>
+	<meta>
+		<generated_at>2007-04-04T13:45:19+00:00</generated_at>
+		<total_entries>1</total_entries></meta>
+	<entries>
+		<entry>
+			<url>http://localhost:8080/PhlooderFunctionTest/phishing.php</url>
+			<phish_id>1234</phish_id>
+			<phish_detail_url>http://www.phishtank.com/phish_detail.php?phish_id=1234</phish_detail_url>
+			<submission>
+				<submission_time>2007-04-04T09:51:25+00:00</submission_time></submission>
+			<verification>
+				<verified>yes</verified>
+				<verification_time>2007-04-04T12:56:56+00:00</verification_time></verification>
+			<status>
+				<online>yes</online>
+			</status>
+		</entry>
+	</entries>
+</output>
