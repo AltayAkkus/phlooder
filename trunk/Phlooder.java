@@ -3,13 +3,10 @@
  * E-mail: blueover AT gmail com
  * Phlooder Website: http://code.google.com/p/phlooder
  * */
-import java.io.*;
 import java.util.*;
-import java.util.regex.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.List;
-import java.net.*;
 
 /**This is the main class.
  * */
@@ -31,11 +28,6 @@ public class Phlooder extends Frame{
 	}
 	
 	ArrayList<URIBox> checkBoxes=new ArrayList<URIBox>();
-
-
-	//int thread_check=0;
-
-	//Form form=null;
 	
 	/**
 	 * Generates the Flood Configuration Fields :)
@@ -132,10 +124,10 @@ public class Phlooder extends Frame{
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.out.println("--Phlood starts!--");
-				if(!ph_thread.isStarted())
+				//if(!ph_thread.isStarted())
 					ph_thread.start();
-				else 
-					ph_thread.restart();
+				//else 
+				//	ph_thread.restart();
 				start.setEnabled(false);
 				stop.setEnabled(true);
 				URIContainer.setVisible(false);
@@ -160,8 +152,6 @@ public class Phlooder extends Frame{
 		repaint();
 	}
 	
-
-
     Container actionContainer;
     Container URIContainer;
 	ScrollPane scroller;
@@ -190,7 +180,7 @@ public class Phlooder extends Frame{
     		System.exit(-1);
     	}
     	Iterator i=checkBoxes.iterator();
-    	setLayout(new GridLayout(2,1));
+    	setLayout(new GridLayout(1,2));
     	welcome.setLoad("Scanning forms");
     	while(i.hasNext()){
     		Checkbox ch=new Checkbox(((URIBox)i.next()).getLabel(),urls_select,false);
@@ -206,10 +196,8 @@ public class Phlooder extends Frame{
     					}else{
     						actionContainer.add(new Label("Cannot load form! Sorry, try another site!"));
     						pack();
-    						repaint();
-    						
+    						repaint();  						
     					}
- 
     				}	
     			}
     		});
@@ -235,8 +223,5 @@ public class Phlooder extends Frame{
     	
     	p.pack();
     	p.setVisible(true);	
-    	
-    	//FormParser fp =new FormParser("http://localhost:8080/PhlooderFunctionTest/phishing.php");
-    	//fp.loadForm();
     }
 }
