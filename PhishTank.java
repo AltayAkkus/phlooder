@@ -4,29 +4,83 @@
  * Phlooder Website: http://code.google.com/p/phlooder
  * */
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.net.*;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.util.DateParser;
 import org.xml.sax.SAXException;
 
 class PhishTank{
 	/**
-	 * Loads all the PhishTank XML data of the online, valid  
-	 * phishing sites, and put the first 10  into the checkBoxes 
-	 * ArrayList
+	 * Downloads the fresh XML and updates the lock.
+	 * Thanks:http://schmidt.devlib.org/java/file-download.html
 	 * */
-	public static ArrayList<URIBox> getPhishTank(String isTest)
-    {
+	private static void cache(){
+		OutputStream out = null;
+		OutputStream lock =null;
+		URLConnection conn = null;
+		InputStream  in = null;
+		String lastUpdate=DateParser.getIsoDate(new Date());
+		
+		try {
+			//URL url = new URL("http://data.phishtank.com/data/online-valid/");
+			URL url = new URL("http://localhost/PhlooderFunctionTest/index.xml");
+			out = new BufferedOutputStream(
+				new FileOutputStream("cache/phishtank.xml"));
+			lock = new BufferedOutputStream(
+					new FileOutputStream("cache/update.lock"));
+			
+			conn = url.openConnection();
+			in = conn.getInputStream();
+			byte[] buffer = new byte[1024];
+			int numRead;
+			while ((numRead = in.read(buffer)) != -1) {
+				out.write(buffer, 0, numRead);
+			}
+			lock.write(lastUpdate.getBytes(),0,lastUpdate.length());
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			System.out.println("Cannot cache data!");
+			System.exit(-1);
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+				if (out != null) {
+					out.close();
+				}
+				if (lock != null) {
+					lock.close();
+				}
+			} catch (IOException ioe) {
+				
+			}
+		}
+	}
+	/**
+	 * Tries to find an up-to-date cached version of the PhishTank XML.
+	 * It downloads and caches the online version.
+	 * @param isTest
+	 * Describes the location of test script while in test mode 
+	 * NULL in other cases
+	 * @param checkBoxes
+	 * Output parameter
+	 * @return
+	 * Document object representing the document to parse or NULL 
+	 * if an error occured.
+	 * */
+	private static Document getData(String isTest,ArrayList<URIBox> checkBoxes){
     	Document document=null;
-    	ArrayList<URIBox> checkBoxes=new ArrayList<URIBox>();
-        
+        boolean isCached=false;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);   
         factory.setNamespaceAware(false);
@@ -34,8 +88,33 @@ class PhishTank{
            DocumentBuilder builder = factory.newDocumentBuilder();
            if (isTest!=null)
         	   document = builder.parse(isTest);
-           else
-        	   document = builder.parse("http://data.phishtank.com/data/online-valid/");
+           else{
+        	   try{
+        		   BufferedReader updateReader=new BufferedReader(new InputStreamReader(new FileInputStream("cache/update.lock")));
+        		   String strDate=updateReader.readLine();
+        		   //System.out.println(strDate);
+        		   Date updateDate=DateParser.parse(strDate);
+        		   
+        		   Calendar outOfDate=Calendar.getInstance();
+        		   System.out.println("Last download:"+updateDate.toString());
+        		   outOfDate.set(Calendar.HOUR_OF_DAY,outOfDate.get(Calendar.HOUR_OF_DAY)-1);
+        		   System.out.println("Out-of-date time:"+outOfDate.getTime().toString());
+        		   if (updateDate.after(outOfDate.getTime())){ 
+        			   System.out.println("Cache is up-to-date!");
+        			   document = builder.parse(new FileInputStream("cache/phishtank.xml"));
+        			   isCached=true;
+        		   }
+        	   }
+        	   catch(Exception fnf){	
+        		   System.out.println("Exception caught.");
+        	   }finally{
+        		   if (!isCached){
+        			   System.out.println("Cannot load XML from cache. Downloading...");
+        			   cache();
+        			   document = builder.parse(new FileInputStream("cache/phishtank.xml"));
+        		   }
+        	   }
+           }
         } catch (SAXException sxe) {
            Exception  x = sxe;
            if (sxe.getException() != null)
@@ -53,6 +132,21 @@ class PhishTank{
         	checkBoxes.clear();
         	return null;
           }
+		return document;
+	}
+	/**
+	 * Loads all the PhishTank XML data of the online, valid  
+	 * phishing sites, and put the first 10  into the checkBoxes 
+	 * ArrayList
+	 * */
+	public static ArrayList<URIBox> getPhishTank(String isTest)
+    {
+    	ArrayList<URIBox> checkBoxes=new ArrayList<URIBox>();
+		Document document=getData(isTest,checkBoxes);
+		if (document==null){
+			System.out.println("Couldn't load XML!");
+			System.exit(-1);
+		}
         NodeList entryList = document.getElementsByTagName("entry");
         Node entry;
         

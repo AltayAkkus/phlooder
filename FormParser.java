@@ -22,7 +22,7 @@ class FormParser{
 			fields=phisher.findFormFields();
 		
 		}catch(Exception e){
-			System.out.println("Parser: Cannot read source!");
+			System.out.println("Parser: Cannot read source!"+uri);
 			return;
 		}
 		
