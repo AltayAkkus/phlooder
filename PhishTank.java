@@ -31,8 +31,9 @@ class PhishTank{
 		String lastUpdate=DateParser.getIsoDate(new Date());
 		
 		try {
-			//URL url = new URL("http://data.phishtank.com/data/online-valid/");
-			URL url = new URL("http://localhost/PhlooderFunctionTest/index.xml");
+			URL url = new URL("http://data.phishtank.com/data/online-valid/");
+			//For testing purposes:
+			//URL url = new URL("http://localhost/PhlooderFunctionTest/index.xml"); 
 			out = new BufferedOutputStream(
 				new FileOutputStream("cache/phishtank.xml"));
 			lock = new BufferedOutputStream(
