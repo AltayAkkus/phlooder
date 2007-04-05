@@ -16,7 +16,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-
+/**
+ * This class represents the form loaded from the phishing site.
+ * */
 class Form{
 		String method;	
 		String action;

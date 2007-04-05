@@ -7,8 +7,9 @@
 /**
  * This class is needed because we dont want to 
  * show the URI-s in their full length, so we have 
- * to assign the checkbox labels with the actual URIs 
+ * to assign the checkbox labels with the actual URIs. 
  * */
+
 class URIBox{
 	private String uri;
 	private String boxLabel;

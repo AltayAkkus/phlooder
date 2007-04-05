@@ -8,7 +8,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.List;
 
-/**This is the main class.
+/**
+ * This is the main class. This class is responsible for the building 
+ * and showing the UI and the handling of user activities (Controll and View). 
+ * TODO: Migrate to Swing
  * */
 public class Phlooder extends Frame{
 	/**
