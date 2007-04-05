@@ -18,6 +18,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.util.DateParser;
 import org.xml.sax.SAXException;
 
+/**
+ * This class contains the methods used to fetch information 
+ * from PhishTank.
+ * */
 class PhishTank{
 	/**
 	 * Downloads the fresh XML and updates the lock.

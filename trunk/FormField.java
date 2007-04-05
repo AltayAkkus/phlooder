@@ -5,7 +5,7 @@
  * */
 
 /**
- * Represents one field on a html form
+ * Represents one field on an html form.
  * */
 class FormField{		
 		public String type;

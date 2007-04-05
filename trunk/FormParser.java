@@ -9,6 +9,8 @@ import java.net.*;
 import java.util.*;
 
 /**
+ * This class is responsible for finding and parsing the forms of an 
+ * HTML document. It uses the Jericho HTML parser.
  * TODO: Default value isn't set!
  * */
 class FormParser{

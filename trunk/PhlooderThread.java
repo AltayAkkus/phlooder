@@ -5,7 +5,7 @@
  * */
 
 /** 
- * The flooder thread. Calls <code>form.send()</code>. 
+ * The flooder thread. Calls <code>Form.send()</code> to flood sites. 
  * TODO: Test pause with multiple sites!
  * */
 	class PhlooderThread extends Thread{
