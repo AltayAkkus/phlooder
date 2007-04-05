@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 class PhishTank{
 	/**
 	 * Downloads the fresh XML and updates the lock.
+	 * Automatically creates the <code>config/</code> directory 
 	 * Thanks:http://schmidt.devlib.org/java/file-download.html
 	 * */
 	private static void cache(){
@@ -29,7 +30,8 @@ class PhishTank{
 		URLConnection conn = null;
 		InputStream  in = null;
 		String lastUpdate=DateParser.getIsoDate(new Date());
-		
+		File cacheDir=new File("cache");
+		if (!cacheDir.isDirectory()) cacheDir.mkdir();
 		try {
 			URL url = new URL("http://data.phishtank.com/data/online-valid/");
 			//For testing purposes:
@@ -82,6 +84,7 @@ class PhishTank{
 	private static Document getData(String isTest,ArrayList<URIBox> checkBoxes){
     	Document document=null;
         boolean isCached=false;
+        BufferedReader updateReader=null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);   
         factory.setNamespaceAware(false);
@@ -91,7 +94,7 @@ class PhishTank{
         	   document = builder.parse(isTest);
            else{
         	   try{
-        		   BufferedReader updateReader=new BufferedReader(new InputStreamReader(new FileInputStream("cache/update.lock")));
+        		   updateReader=new BufferedReader(new InputStreamReader(new FileInputStream("cache/update.lock")));
         		   String strDate=updateReader.readLine();
         		   //System.out.println(strDate);
         		   Date updateDate=DateParser.parse(strDate);
@@ -114,6 +117,8 @@ class PhishTank{
         			   cache();
         			   document = builder.parse(new FileInputStream("cache/phishtank.xml"));
         		   }
+        		   if (updateReader!=null)
+        			   updateReader.close();
         	   }
            }
         } catch (SAXException sxe) {
