@@ -18,6 +18,7 @@ class PhlooderSwing extends JPanel{
     JPanel selectPanel; /// Panel of the site selection
     JPanel configPanel; /// Panel for the Flood Configuration Fields
     JComboBox phishSelect;
+    static JFrame frame;
     Label name;
     
     ArrayList<URIBox> sites;
@@ -148,6 +149,8 @@ class PhlooderSwing extends JPanel{
 		configPanel.add(start);
 		configPanel.add(stop);
 		configPanel.validate();
+		frame.pack();
+		frame.repaint();
 
 	}
 	private String getURIFromCheckBox(String label, ArrayList list){
@@ -218,7 +221,7 @@ class PhlooderSwing extends JPanel{
         JDialog.setDefaultLookAndFeelDecorated(true);
        
         //Create and set up the window.
-        JFrame frame = new JFrame("Phlooder");
+        frame = new JFrame("Phlooder");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 
         //Set up the content pane.
