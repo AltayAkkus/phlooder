@@ -1,5 +1,6 @@
 /**
  * @author The Blue Overdose Project
+ * @version 0.2
  * E-mail: blueover AT gmail com
  * Phlooder Website: http://code.google.com/p/phlooder
  * */
@@ -214,7 +215,15 @@ public class Phlooder extends Frame{
     	}	
     }
     /**
-     * Main entry point.
+     * Main entry point, manual testing interface.
+     * @param args
+     * Command-line arguments can be used for testing purposes.
+     * If args[0] is set the program tries to get the XML file containing 
+     * the phishing sites information from the URL given in this argument 
+     * instead of the original PhishTank location.
+     * The PhlooderFunctionTest package contains a sample XML file and a tiny
+     * test script that can be used for testing.
+     * For more information see the ReadMe located in <code>PhlooderFunctionTest/</code>!
      * */
     
     public static void main(String args[]){

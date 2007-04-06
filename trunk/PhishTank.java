@@ -25,8 +25,9 @@ import org.xml.sax.SAXException;
 class PhishTank{
 	/**
 	 * Downloads the fresh XML and updates the lock.
-	 * Automatically creates the <code>config/</code> directory 
-	 * Thanks:http://schmidt.devlib.org/java/file-download.html
+	 * Automatically creates the <code>config/</code> directory. 
+	 *
+	 * Thanks: http://schmidt.devlib.org/java/file-download.html
 	 * */
 	private static void cache(){
 		OutputStream out = null;
@@ -74,16 +75,16 @@ class PhishTank{
 		}
 	}
 	/**
-	 * Tries to find an up-to-date cached version of the PhishTank XML.
-	 * It downloads and caches the online version.
+	 * Parses the XML data provided by PhishTank or by the user.
 	 * @param isTest
-	 * Describes the location of test script while in test mode 
-	 * NULL in other cases
+	 * Describes the location of test script while in test mode. 
+	 * NULL in other cases.
 	 * @param checkBoxes
-	 * Output parameter
+	 * Output parameter.
 	 * @return
 	 * Document object representing the document to parse or NULL 
 	 * if an error occured.
+	 * @see org.w3c.dom.Document
 	 * */
 	private static Document getData(String isTest,ArrayList<URIBox> checkBoxes){
     	Document document=null;
