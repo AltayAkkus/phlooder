@@ -1,0 +1,90 @@
+<html>
+<head>
+	<title>
+		Phlooder
+	</title>
+</head>
+<body>
+
+<h1>Phlooder</h1>
+<p>
+<a href="#intro">Introduction</a><br/>
+<a href="#install">Installation</a><br/>
+<a href="#use">Usage</a><br/>
+<a href="#contact">Contact</a><br/>
+</p>
+<a name="intro"></a>
+<h3>Introduction</h3>
+<p>
+Phlooder is an easy to use open-source tool to flood phishing databases with useless information.
+</p>
+
+<p>
+Phlooder uses the technique called <a href="http://en.wikipedia.org/wiki/Scam_baiting" target="_blank">duping</a> or <a href="http://en.wikipedia.org/wiki/Scam_baiting" target="_blank">scam baiting</a> which means that it acts like a duped user who wants to share his personal data with the chosen phishing site, hundred times a minute.
+</p>
+
+<p>
+Of course all the information given out is random generated so the phisher's evil little script starts to gather huge amounts of useless data, cosuming the phishers resourses and hiding the real 'phishes' with real information.
+</p>
+
+<p>
+The project is in development state now, the latest test releases are always to be found in the Downlads section. If you want to add new features to the program or just want to take a look into the soure code, feel free to checkout the Subversion repository and send your changes! 
+</p>
+
+<a name="install"></a>
+<h3>Installation</h3>
+<p>
+Phlooder requires no installation. The application can be started with the command
+</p>
+
+<p>
+<font face="Courier"><em>java -jar phlooder-&lt;version&gt;.jar</em></font>
+</p>
+Java Runtine Environment 1.4.2 or higher is required (<a href="http://java.sun.com/j2se/1.4.2/download.html" target="_blank">download</a>)!
+<p>
+</p>
+
+<a name="use"></a>
+<h3>Usage</h3>
+<p>
+After started the program creates a directory called <em>cache/</em> in the current directory and tries to download phishing site information from <a href="http://www.phishtank.com" target="_blank">PhishTank</a>. This can take longer time please be patient!   
+</p>
+<p>
+When the download is complete a new window appears with the phishing site URL's on the left. You can choose one by checking the radio button next to the URL. After the selected site is downloaded and parsed you will see the Flood Configuration Fields appear on the right.
+</p>
+<p>
+Flood Configuration Fields (FCF's) are used to clue Phlooder up about the structure of information it has to send out to the phishing sites. You will see one FCF for each form field found on the phishing site. You can specify the <b>type</b> and the <b>length</b> of the information which Phlooder will fill the field with. 
+</p>
+<p>
+The type of a FCF can be:<br/>
+<ul>
+<li>
+<b>Default Value:</b> This type is used to send back pre-definied fields to the phishing script. Pre-definied fields are mostly used by checkboxes, radio buttons, selects fields or to verify the incoming data (hidden fileds). In most cases this type is the good choise for fields with pre-definied value.
+</li>
+<li>
+<b>Integer:</b> A number.
+</li>
+<li>
+<b>String:</b> A chain of characters from the abc.
+</li>
+<li>
+<b>E-mail:</b> A random generated e-mail address.
+</li>
+</ul>
+</p>
+<p>
+If every FCF is set up properly you can click the button "Phlood it!" to start the flood. Flood can be interrupted at any time by pressing "Pause".
+</p>
+
+<a name="contact"></a>
+<h3>Contact</h3>
+<p>
+You can contact The Blue Overdose Project via e-mail at blueover [at] gmail [dot] com.<br/>
+New versions, project information and issue tracking system can be found on the <a href="http://www.google.com">Google</a> hosted <a href="http://code.google.com/p/phlooder">project website</a>.
+</p>
+
+<p>
+<a href="http://www.phishtank.com" target="_blank"><img src="http://www.phishtank.com/images/phishtank_120x60_white.gif" border="0"/></a>
+</p>
+</body>
+</html>
