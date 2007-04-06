@@ -11,12 +11,16 @@ import java.util.*;
 /**
  * This class is responsible for finding and parsing the forms of an 
  * HTML document. It uses the Jericho HTML parser.
- * TODO: Default value isn't set!
  * */
 class FormParser{
 	private Source phisher;
 	private FormFields fields;
 	private String originalURI;
+	/**
+	 * Constructs a new FormParser.
+	 * @param uri
+	 * The URI of the HTML file to process.
+	 * */
 	FormParser(String uri){
 		try{
 			phisher=new Source(new URL(uri));
@@ -29,6 +33,12 @@ class FormParser{
 		}
 		
 	}
+	
+	/**
+	 * @return 
+	 * A Form object representing the first form parsed from the HTML
+	 * @see Form 
+	 * */
 	public Form loadForm(){
 		String formAction=new String();
 		String formMethod=new String();

@@ -1,5 +1,11 @@
 <?php
-
+/**
+* @author The Blue Overdose Project
+* @version 0.1
+* This script is used to test/demonstrate the functional behaviour of Phlooder.
+* Displays the contents of phishing.html and logs all the POST and GET requests 
+* into db.txt.
+*/
 $resource=NULL;
 
 if ($_POST['form_sent']=='Yes')

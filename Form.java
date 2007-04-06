@@ -25,34 +25,61 @@ class Form{
 		String original_uri;
 		ArrayList<FormField> fields;
 		
-		
+		/**
+		 * Constructs a new Form 
+		 * @param a
+		 * Form action.
+		 * @param m
+		 * Form method.
+		 * */
 		Form(String a,String m){
 			action=a;
 			method=m;
 			fields=new ArrayList<FormField>();
 			
 		}
+		/**
+		 * Constructs a new Form with no action and GET method.
+		 * */
 		Form (){
 			action="";
 			method="GET";
 			fields=new ArrayList<FormField>();
 			
 		}
+		/**
+		 * Adds a new field to the Form
+		 * @param f
+		 * @see FormField
+		 * */
 		public void addField(FormField f){
 			fields.add(f);
 		}
+		/**
+		 * Sets the request method
+		 * @param m
+		 * GET or POST (case insensitive).
+		 * */
 		public void setMethod(String m){
-			method=m;
+			if (m.toLowerCase().equals("GET") || m.toLowerCase().equals("POST"))
+				method=m.toUpperCase();
 		}
-		
+		/**
+		 * Sets the Form action.
+		 * */
 		public void setAction(String a){
 			action=a;
 		}
-		
-		public FormField getFieldByName(String name){
-			return null;
-		}
-		
+
+		/**
+		 * Returns a FormField by its nummeric position 
+		 * @param index
+		 * The position of the Field.
+		 * @return
+		 * The FormField object representing the field requested or 
+		 * <code>NULL</code> if no field found.
+		 * @see FormField
+		 * */
 		public FormField getFieldByIndex(int index){
 			Iterator it=fields.iterator();
 			FormField f=null;
@@ -61,6 +88,9 @@ class Form{
 			}
 			return f;
 		}
+		/**
+		 * Returns a human readable reprezentation of the Form
+		 * */
 		public String toString(){
 			String ret=action+"->"+method+"\n";
 			Iterator it=fields.iterator();
@@ -74,11 +104,17 @@ class Form{
 			}
 			return ret;
 		}
+		
+		/**
+		 * Returns the number of fields loaded
+		 * */
 		int getInputCount(){
 			return fields.size();
 		}
-		/*Sets the URI of the file that contains the form.
-		 * */
+		
+		/**
+		 * Sets the URI of the file that contains the form.
+		 */
 		public void setURI(String uri){
 			original_uri=uri;
 		}
@@ -135,7 +171,13 @@ class Form{
 			}
 			
 		}
-
+		/**
+		 * Generates random integer and returns it as a String.
+		 * @param length
+		 * (int)log10(expected_result)
+		 * @return
+		 * A String containing only numbers with the length specified in parameter.
+		 * */
 		String generateRandomInt(int length){
 			String ret=new String();
 			Random r=new Random();
@@ -145,6 +187,10 @@ class Form{
 			}
 			return ret;
 		}
+		
+		/**
+		 * Generates random string with the given length.
+		 * */
 		String generateRandomString(int length){
 			String ret=new String();
 			Random r=new Random();
@@ -155,14 +201,20 @@ class Form{
 			}
 			return ret;
 		}
-		
+		/**
+		 * Generates random e-mail address 
+		 */
 		String generateRandomEmail(){
 			String ret=new String();
 			Random r = new Random();
 			ret=generateRandomString(r.nextInt(15)).toLowerCase()+"@"+generateRandomString(r.nextInt(25)).toLowerCase()+"."+generateRandomString(2).toLowerCase();
 			return ret;
 		}
-
+		/**
+		 * Sends the Form via POST method
+		 * @param url
+		 * The location of the script to send to.
+		 * */
 		void sendViaPOST(URL url){
 			try{
 				URLConnection conn=url.openConnection();
@@ -202,6 +254,12 @@ class Form{
 				return;
 			}
 		}
+		
+		/**
+		 * Sends the Form via GET method
+		 * @param url
+		 * The location of the script to send to.
+		 * */
 		void sendViaGET(URL url){
 			try{
 				Iterator i=fields.iterator();

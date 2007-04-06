@@ -20,10 +20,9 @@
 			threadCheck=0;
 		}
 		
-		/**The original stop() method is unsafe!
-		 * This method is to be used instead of that!
-		 * I don't know if this solution is good enough, but 
-		 * the one on sun.com doesn't work :P
+		
+		/**
+		 * Replacement of the deprecated method <code>stop()</code>
 		 * */
 		public void pause(){
 			//threadSuspended=false;
