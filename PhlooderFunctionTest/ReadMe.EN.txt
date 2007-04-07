@@ -14,8 +14,22 @@ where <server> is the domain name of your web server (usually localhost).
 
 - Optionally edit phishing.html. Do not remove the hidden field named "form_sent"!
 
-- Run Phlooder with the command line argument:
+- Run Phlooder 
+
+- Set the content of the text field in the Test panel to:
 
 	http://<server>/PhlooderFunctionTest/index.xml
 
 where <server> is the domain name of your web server (usually localhost).
+
+- Check the check box in the Test panel
+
+- Select a test site from the Phishing site combo box
+
+- Set up the Flood Configuration Fields
+
+- Click "Phlood it!"
+
+- Check db.txt for the results
+
+For detailed information see the users documentation!

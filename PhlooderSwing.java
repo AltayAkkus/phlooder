@@ -15,11 +15,13 @@ import java.util.*;
  * TODO: Migrate to Swing
  * */
 class PhlooderSwing extends JPanel{
-    JPanel selectPanel; /// Panel of the site selection
-    JPanel configPanel; /// Panel for the Flood Configuration Fields
-    JComboBox phishSelect;
     static JFrame frame;
-    Label name;
+	JPanel selectPanel; /// Panel of the site selection
+    JPanel configPanel; /// Panel for the Flood Configuration Fields
+    JPanel testPanel; /// Panel for testing
+    JComboBox phishSelect;
+    JCheckBox isTest;
+    JTextField testXML;
     
     ArrayList<URIBox> sites;
     
@@ -31,35 +33,32 @@ class PhlooderSwing extends JPanel{
 	 * Generates the Flood Configuration Fields :)
 	 */
 	private void putActionPanel(Form form){
-		System.out.println("Puting...");
 		configPanel.removeAll();
 		selectPanel.setVisible(true);
-		
-		
 		configPanel.setLayout(new GridLayout(form.getInputCount()+2,4));
 		
 		// Titles
-		Label title1=new Label("Field Name");
+		JLabel title1=new JLabel("Field Name");
 		title1.setFont(new Font("title",Font.BOLD,13));
 		configPanel.add(title1);
-		Label title2=new Label("Type");
+		JLabel title2=new JLabel("Type");
 		title2.setFont(new Font("title",Font.BOLD,13));
 		configPanel.add(title2);
-		Label title3=new Label("Flood Value");
+		JLabel title3=new JLabel("Flood Value");
 		title3.setFont(new Font("title",Font.BOLD,13));;
 		configPanel.add(title3);
-		Label title4=new Label("Flood Length");
+		JLabel title4=new JLabel("Flood Length");
 		title4.setFont(new Font("title",Font.BOLD,13));;
 		configPanel.add(title4);
-		Label title5=new Label("Default Value");
+		JLabel title5=new JLabel("Default Value");
 		title5.setFont(new Font("title",Font.BOLD,13));;
 		configPanel.add(title5);
 		
 		//Flood Configuration Fields
 		for(int i=0;i<form.getInputCount();i++){
 			final FormField f=form.getFieldByIndex(i);
-			configPanel.add(new Label(f.name));
-			configPanel.add(new Label(f.type));
+			configPanel.add(new JLabel(f.name));
+			configPanel.add(new JLabel(f.type));
 			
 			final JComboBox l=new JComboBox();
 			l.addItem("Default value");
@@ -168,8 +167,10 @@ class PhlooderSwing extends JPanel{
     	public void actionPerformed(ActionEvent e){
     		JComboBox box=(JComboBox)e.getSource();
     		
-    		if (box.getSelectedIndex()==0) return;
-    		
+    		if (box.getItemCount()==0 || box.getSelectedIndex()==0) return;
+    		System.out.println(e.paramString());
+    		configPanel.removeAll();
+    		configPanel.validate();
     		FormParser parser=new FormParser(getURIFromCheckBox(box.getSelectedItem().toString(),sites));
     		Form myForm=parser.loadForm();
     		if (myForm!=null){
@@ -177,20 +178,47 @@ class PhlooderSwing extends JPanel{
     		}
     	}
     }
-    PhlooderSwing(JFrame frame,String isTest) {
+    private class TestListener implements ActionListener{
+    	public void actionPerformed(ActionEvent e){
+    		if (isTest.isSelected()){
+    			sites=PhishTank.getPhishTank(testXML.getText());
+    			if (sites.isEmpty()){
+    	    		System.out.println("No phishers found!");
+    	    	}else{
+    	    		phishSelect.removeAllItems();
+    	    		phishSelect.addItem("-- Select One --");
+    	    		for(Iterator i=sites.iterator();i.hasNext();){
+    	    			phishSelect.addItem(((URIBox)i.next()).getLabel());
+    	    		}
+    	    	}
+    		}else {
+    			sites=PhishTank.getPhishTank(null);
+    			if (sites.isEmpty()){
+    	    		System.out.println("No phishers found!");
+    	    	}else{
+    	    		phishSelect.removeAllItems();
+    	    		phishSelect.addItem("-- Select One --");
+    	    		for(Iterator i=sites.iterator();i.hasNext();){
+    	    			phishSelect.addItem(((URIBox)i.next()).getLabel());
+    	    		}
+    	    	}
+    		}
+    			
+    	}
+    }
+    PhlooderSwing(JFrame frame) {
     	super(new BorderLayout());
         
         selectPanel=new JPanel(new FlowLayout());
         configPanel=new JPanel(new GridLayout(1,1));
-        
+        testPanel=new JPanel(new FlowLayout());
         selectPanel.setBorder(BorderFactory.createTitledBorder("Phishing site"));
         configPanel.setBorder(BorderFactory.createTitledBorder("Flood Configuration Fields"));
-		name=new Label("Field Name");
-		name.setFont(new Font("title",Font.BOLD,13));
-		configPanel.add(name);
+		testPanel.setBorder(BorderFactory.createTitledBorder("Test"));
 		
+		// Seting up selectPanel
         phishSelect=new JComboBox();
-        sites=PhishTank.getPhishTank(isTest); 
+        sites=PhishTank.getPhishTank(null);
         phishSelect.addItem("-- Select One --");
     	if (sites.isEmpty()){
     		System.out.println("No phishers found!");
@@ -202,9 +230,17 @@ class PhlooderSwing extends JPanel{
         }
         phishSelect.addActionListener(new siteSelectListener());
         selectPanel.add(phishSelect);
+        
+        // Seting up testPanel
+        testXML=new JTextField("http://localhost/PhlooderFunctionTest/index.xml");
+        isTest=new JCheckBox();
+        isTest.addActionListener(new TestListener());
+        testPanel.add(isTest);
+        testPanel.add(testXML);
         //JPanel pane = new JPanel(new GridLayout(2, 1));
         add(selectPanel,BorderLayout.NORTH);
         add(configPanel,BorderLayout.CENTER);
+        add(testPanel,BorderLayout.SOUTH);
         setBorder(BorderFactory.createEmptyBorder(
                                         30, //top
                                         30, //left
@@ -215,7 +251,7 @@ class PhlooderSwing extends JPanel{
         //return pane;
     }
 
-	private static void createAndShowGUI(String isTest){
+	private static void createAndShowGUI(){
         //Make sure we have nice window decorations.
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
@@ -227,7 +263,7 @@ class PhlooderSwing extends JPanel{
         //Set up the content pane.
         Container contentPane = frame.getContentPane();
         contentPane.setLayout(new GridLayout(1,1));
-        contentPane.add(new PhlooderSwing(frame,isTest));
+        contentPane.add(new PhlooderSwing(frame));
 
         //Display the window.
         frame.pack();
@@ -236,13 +272,12 @@ class PhlooderSwing extends JPanel{
 
 	/**
 	 * Main entry point
-	 * TODO: Command line arguments for manual testing
 	 * */
 	public static void main(String args[]){
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI("http://localhost/PhlooderFunctionTest/index.xml");
+                createAndShowGUI();
             }
         });
 	}
