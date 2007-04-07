@@ -58,20 +58,17 @@ class FormParser{
 			au.id.jericho.lib.html.FormField f=(au.id.jericho.lib.html.FormField)i.next();
 			FormControlType type=f.getFormControl().getFormControlType();
 			String name=f.getName();
-			System.out.println(type+" "+name);
 			Collection values=f.getPredefinedValues();
 			String value=new String();
 			Flood floodType=new Flood();
 			for(Iterator v=values.iterator();v.hasNext();){
 				value=(String)v.next(); 
-				System.out.println("- "+value);
 				if (value.length()>0) floodType.type=Flood.NOP;
 			}
 			values=f.getValues();
 			
 			for(Iterator v=values.iterator();v.hasNext();){
 				value=(String)v.next(); 
-				System.out.println("- "+value);
 				if (value.length()>0) floodType.type=Flood.NOP;
 			}
 			FormField ff=new FormField(type.toString(),value,name,floodType);
