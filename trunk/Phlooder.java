@@ -167,7 +167,6 @@ class Phlooder extends JPanel{
     		JComboBox box=(JComboBox)e.getSource();
     		
     		if (box.getItemCount()==0 || box.getSelectedIndex()==0) return;
-    		System.out.println(e.paramString());
     		configPanel.removeAll();
     		configPanel.validate();
     		FormParser parser=new FormParser(getURIFromCheckBox(box.getSelectedItem().toString(),sites));
